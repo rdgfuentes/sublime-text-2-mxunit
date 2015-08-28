@@ -11,7 +11,10 @@
 	"server" : "localhost",
 	"port" : "8301" ,
 
+
 	//Make sure to add leading and trailing '/'
 	"component_root" : "/" ,
-	"web_root" :    "/home/billy/software/jrun4/servers/dev/cfusion.ear/cfusion.war"
+	"web_root" :    "/home/billy/software/jrun4/servers/dev/cfusion.ear/cfusion.war",
+
+	"json_prefix_regex": "",
 }

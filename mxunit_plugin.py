@@ -30,6 +30,8 @@ class BaseCommand(sublime_plugin.TextCommand):
 
 		self.view = view
 		self.output_view = None
+		self.json_prefix_regex = re.compile('^' + global_settings.get('json_prefix_regex', ''))
+
 		# grab the runner config items
 		self.port = global_settings.get('port', '80')
 		self.server = global_settings.get('server', 'localhost')
@@ -65,6 +67,8 @@ class BaseCommand(sublime_plugin.TextCommand):
 			_res = urlopen(url)
 			self._win = self.view.window()
 			self._results = _res.read()
+			self._results = re.sub(self.json_prefix_regex, '', self._results)
+
 			self.view.window().run_command(
 				"show_panel", {"panel": "output.tests"}
 			)

@@ -73,12 +73,15 @@ __Or (Using mouse clicks)__
 		"port" : "8301" ,
 		"component_root" : "/" ,
 		"web_root" :  "/home/billy/software/jrun4/servers/dev/cfusion.ear/cfusion.war/" ,
+		"json_prefix_regex": "//"
 	
 	}
 	``` 
 	The ```component_root``` is how the web server sees your application. Above assumed all apps are visible from
 	http://localhost:8301/  and all files are stored in the  ```web_root``` directory.
 
+	The ```json_prefix_regex``` is used to remove the JSON prefix of your requests before decoding to JSON object. Use it to fix the "No JSON object could be decoded" error when running tests.
+	To check if you have JSON prefix enabled go to "CFIDE > Server Settings > Settings > Prefix serialized JSON with ...", there you can see if it is enabled and what's the prefix in use.
 
 ## Installation via [Package Control](http://wbond.net/sublime_packages/package_control)
 
