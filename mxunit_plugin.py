@@ -56,13 +56,13 @@ class BaseCommand(sublime_plugin.TextCommand):
 		)
 
 	def on_done(self, selected_item):
-		""" Playing with quick panel events. Does nothing useful."""
+		"""Playing with quick panel events. Does nothing useful."""
 		keys = self.test_items.keys()
 		key = keys[selected_item]
 		print(self.test_items[key])
 
 	def run_test(self, url, edit, show_failures_only=False):
-		""" Main test runner. Intended to be called  from child command."""
+		"""Main test runner. Intended to be called  from child command."""
 		try:
 			_res = urlopen(url)
 			self._win = self.view.window()
@@ -115,36 +115,36 @@ class ShowQpCommand(BaseCommand):
 	"""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		self.show_qp()
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class HideTestPanelCommand(BaseCommand):
 
-	""" Hide the test results panel (esc works fine, but whatever...)."""
+	"""Hide the test results panel (esc works fine, but whatever...)."""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		self.view.window().run_command("hide_panel", {"panel": "output.tests"})
 
 
 class ShowTestPanelCommand(BaseCommand):
 
-	""" Shows the test results panel. """
+	"""Shows the test results panel."""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		self.view.window().run_command("show_panel", {"panel": "output.tests"})
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class MxunitCommand(BaseCommand):
 
-	""" Runs all tests in an MXUnit testcase."""
+	"""Runs all tests in an MXUnit testcase."""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		_view = self.view
 		_current_file = self.canonize(_view.file_name())
 		_web_root = self.canonize(get_setting_w_project_override('web_root', self.web_root))
@@ -160,17 +160,17 @@ class MxunitCommand(BaseCommand):
 		self.run_test(_url, edit)
 
 	def canonize(self, path):
-		""" Canonize. """
+		"""Canonize."""
 		return path.replace('\\', '/')
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class RunAllFailuresOnlyCommand(BaseCommand):
 
-	""" Runs all tests in an MXUnit testcase but display only failures. """
+	"""Runs all tests in an MXUnit testcase but display only failures."""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		_view = self.view
 		_current_file = _view.file_name()
 		# test
@@ -189,10 +189,10 @@ class RunAllFailuresOnlyCommand(BaseCommand):
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class RunLastTestCommand(BaseCommand):
 
-	""" Looks up the last run test and simly runs it. """
+	"""Looks up the last run test and simly runs it."""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		_url = self.last_run_settings.get("last_test_run")
 		_show_failures = self.last_run_settings.get("show_failures_only")
 		self.run_test(_url, edit, _show_failures)
@@ -209,7 +209,7 @@ class SingleTestCommand(BaseCommand):
 	"""
 
 	def run(self, edit):
-		""" Run. """
+		"""Run."""
 		_view = self.view
 		for region in _view.sel():
 			line = _view.line(region)
@@ -293,7 +293,7 @@ def pretty_results(test_results, show_failures_only):
 
 
 def pretty_print_stacktrace(data):
-	""" Pretty print the stacktrace. """
+	"""Pretty print the stacktrace."""
 	results = ''
 	print(len(data[0]))
 	for e in data:
@@ -303,7 +303,7 @@ def pretty_print_stacktrace(data):
 
 
 def parse_line(line):
-	""" From a line of text gets the function name. """
+	"""From a line of text gets the function name."""
 	pattern = re.compile(
 		"""
 		[ \t]*
@@ -320,7 +320,7 @@ def parse_line(line):
 
 
 def get_setting_w_project_override(name, default):
-	""" settings. """
+	"""settings."""
 	project_settings = sublime.active_window().active_view().settings().get('MXUnit')
 	if project_settings is not None:
 		setting = project_settings.get(name, default)
